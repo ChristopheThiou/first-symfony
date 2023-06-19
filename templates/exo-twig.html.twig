@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exo-Twig</title>
+    <style>
+      .odd {
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exo Twig</h1>
+    {% if names|length >= 4 %} {% for name in names %}
+
+    <ul>
+      <li>
+        <p class="{% if loop.index is odd %}odd {% else %}even {% endif %}">
+          {{ name }}
+        </p>
+      </li>
+    </ul>
+    {% endfor %} {% endif %}
+  </body>
+</html>
