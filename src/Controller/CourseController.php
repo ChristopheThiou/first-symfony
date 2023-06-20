@@ -49,4 +49,11 @@ class CourseController extends AbstractController
             "id2" => $update->findById($id)
         ]);
     }
+    #[Route("/remove-course/{id}")]
+    public function delete(int $id)
+    {
+        $delete = new CourseRepo;
+        $delete->delete($id);
+        return $this->redirect("/courses");
+    }
 }

@@ -4,7 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Course;
 
-class CourseRepo{
+class CourseRepo
+{
     public function findAll($page = 1, $pageSize = 10): array
     {
         $list = [];
@@ -57,6 +58,14 @@ class CourseRepo{
         $query->bindValue(':content', $course->getContent());
         $query->bindValue(':published', $course->getDate()->format('Y-m-d'));
         $query->bindValue(':id', $course->getId());
+        $query->execute();
+    }
+    public function delete(int $id): void
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare("DELETE FROM course WHERE id=:id");
+        $query->bindValue(":id", $id);
         $query->execute();
     }
 }
