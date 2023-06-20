@@ -32,9 +32,21 @@ class CourseController extends AbstractController
     {
         $add = new CourseRepo;
         $addData = $request->request->all();
-        if (count($addData) > 0 ) {
+        if (count($addData) > 0) {
             $add->persist(new Course(0, $addData['title'], $addData['subject'], $addData['content'], new \DateTime));
         }
         return $this->render("add-course.html.twig");
+    }
+    #[Route("/update-course/{id}")]
+    public function updateCourse(Request $request, int $id)
+    {
+        $update = new CourseRepo;
+        $updateData = $request->request->all();
+        if (count($updateData) > 0) {
+            $update->update(new Course($id, $updateData['title'], $updateData['subject'], $updateData['content'], new \DateTime));
+        }
+        return $this->render("update-course.html.twig", [
+            "id2" => $update->findById($id)
+        ]);
     }
 }
