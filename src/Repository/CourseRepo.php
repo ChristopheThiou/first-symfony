@@ -36,10 +36,11 @@ class CourseRepo{
     {
         $connection = Database::getConnection();
 
-        $query = $connection->prepare("INSERT INTO course (title,subject,content) VALUES (:title,:subject,:content)");
+        $query = $connection->prepare("INSERT INTO course (title,subject,content, published) VALUES (:title,:subject,:content, :published)");
         $query->bindValue(':title', $course->getTitle());
         $query->bindValue(':subject', $course->getSubject());
         $query->bindValue(':content', $course->getContent());
+        $query->bindValue(':published', $course->getDate()->format('Y-m-d'));
         $query->execute();
 
         $course->setId($connection->lastInsertId());
