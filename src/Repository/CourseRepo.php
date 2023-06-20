@@ -32,4 +32,16 @@ class CourseRepo{
         }
         return null;
     }
+    public function persist(Course $course): void
+    {
+        $connection = Database::getConnection();
+
+        $query = $connection->prepare("INSERT INTO course (title,subject,content) VALUES (:title,:subject,:content)");
+        $query->bindValue(':title', $course->getTitle());
+        $query->bindValue(':subject', $course->getSubject());
+        $query->bindValue(':content', $course->getContent());
+        $query->execute();
+
+        $course->setId($connection->lastInsertId());
+    }
 }
